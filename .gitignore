@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Data — never commit raw restricted datasets
+data/raw/
+data/cer_smart_metering/
+*.csv
+!data/samples/*.csv
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs / local DB
+*.log
+*.db
+*.sqlite3
+
+# Docker
+*.pid
