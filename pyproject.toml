@@ -24,6 +24,26 @@ dev = [
     "mypy>=1.9",
 ]
 
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+# This project has no single top-level package matching its name (it's 5
+# sibling packages: shared, simulation, agents, forecasting, dashboard), so
+# setuptools' flat-layout auto-discovery can't guess correctly on its own —
+# without this, `pip install -e .` fails with "Multiple top-level packages
+# discovered in a flat-layout" on every machine, deterministically.
+# `tests` and `data` are deliberately excluded — they aren't importable
+# packages consumed by other modules.
+[tool.setuptools.packages.find]
+include = [
+    "shared", "shared.*",
+    "simulation", "simulation.*",
+    "agents", "agents.*",
+    "forecasting", "forecasting.*",
+    "dashboard", "dashboard.*",
+]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -33,3 +53,4 @@ select = ["E", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests", "shared", "simulation", "agents", "forecasting", "dashboard"]
+

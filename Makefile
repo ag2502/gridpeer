@@ -1,7 +1,10 @@
 .PHONY: setup lint test run-sim clean
 
+# Override on any machine that doesn't have 3.12: `make setup PYTHON=python3.11`
+PYTHON ?= python3.12
+
 setup:
-	python3 -m venv .venv
+	$(PYTHON) -m venv .venv
 	. .venv/bin/activate && pip install --upgrade pip && pip install -e ".[dev]"
 	@echo "Run 'source .venv/bin/activate' to activate the environment."
 
