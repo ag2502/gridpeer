@@ -6,7 +6,7 @@ Per-household demand + solar generation forecasting. See `CLAUDE.md` in this fol
 
 ## Status
 
-- [ ] Naive baseline forecaster
+- [x] Naive baseline forecaster (`baseline.NaiveForecaster`, rolling average + flat fallback)
 - [ ] LightGBM/Prophet demand model
 - [ ] Solar generation forecaster
 - [ ] Backtest report (MAE/MAPE per household)
