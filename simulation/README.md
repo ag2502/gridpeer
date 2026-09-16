@@ -7,15 +7,29 @@ Market clearing mechanism (continuous double auction) + household environment. S
 ## Status
 
 - [x] 2-household deterministic test case
-- [ ] Household environment (real data loading)
+- [~] Household environment — battery + net position done; real data loading waits on `data/`
 - [x] N-household continuous double auction
-- [ ] Grid-baseline fallback for unmatched orders
+- [x] Grid-baseline fallback for unmatched orders
 
 ## Running just this module
 
 ```bash
 pytest simulation/
 ```
+
+## The three pieces
+
+- `market.py` — `clear_tick()`: the auction. Orders in, trades out.
+- `environment.py` — `HouseholdEnvironment`: steps a household through its demand/solar
+  series, running the battery, and reports the net position actually left to trade. Series
+  are passed in; the loader that reads real CER/PVGIS data belongs in `data/`.
+- `settlement.py` — `settle_tick()`: what the tick cost each household under P2P versus the
+  grid-only counterfactual. Unmatched orders fall back to that household's own grid tariffs
+  and therefore save nothing, which is what keeps the headline savings figure honest.
+
+Costs are signed: positive means money left the household, so a seller's cost is negative.
+`HouseholdOutcome` and `RunSummary` are the dashboard's to build by summing these across a
+run — no schema change needed.
 
 ## Clearing, in one paragraph
 
